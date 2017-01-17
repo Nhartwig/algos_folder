@@ -20,22 +20,17 @@ int main(int argc, const char * argv[]) {
     Code mastermindSeq(n,m);
     int win=0;
     std::vector<int> seqCode=mastermindSeq.getCode();
-    for(int i=0;i<10;i=i+1){
-       Code guessSeqinit(n,m);
+     for(int i=0;i<10;i=i+1){
+    std::vector<int> guessCode;
+    int temp[5];
+    std::cout<<"Input Number Bettween 0-"<<m<<std::endl;
+    std::cin>>temp[0]>>temp[1]>>temp[2]>>temp[3]>>temp[4];
+    guessCode={temp[0],temp[1],temp[2],temp[3],temp[4]};
+    Code guessSeqinit(n,m);
+    guessSeqinit.setCode(guessCode);
         int Cor=mastermindSeq.checkCorrect(&guessSeqinit);
         int inCor=mastermindSeq.checkIncorrect(&guessSeqinit);
-        //DEBUG GAME CODE
-        std::vector<int> guessCode=guessSeqinit.getCode();
-        for(int j=0;j<n;j=j+1){
-            std::cout<<guessCode[i];
-        }
-        std::cout<<std::endl;
-        
-        for(int j=0;j<n;j=j+1){
-            std::cout<<seqCode[i];
-        }
-        std::cout<<std::endl;
-        
+    
         if(Cor==n){
             win=1;
             break;
@@ -44,11 +39,9 @@ int main(int argc, const char * argv[]) {
         std::cout<<"Trial Number:"<<i<<std::endl;
         std::cout<<"Correct: "<<Cor<<" Incorrect: "<<inCor<<std::endl;
         
-        
-        
-       
-        
     }
+    
+    
     if (win==1){
         std::cout<<"YOU WON!!!"<<std::endl;
     }else{

@@ -8,6 +8,7 @@
 
 #include "Code.hpp"
 #include "d_random.h"
+#include <ctime>
 /*class Code{
 private:
     std::vector<int> seq;
@@ -27,8 +28,9 @@ Code::Code(int n , int m){
 
 void Code::seqInitialize(int n, int m){
     randomNumber rndA(1);
+    srand( time(0));
     for(int i=0; i<n;i=i+1){
-        seq.push_back((int)rndA.random(m));
+        seq.push_back((rand()%(m-1)));
     }
 }
 
@@ -48,7 +50,9 @@ int Code::checkCorrect(Code *guess){
     }
     return correct;
 }
-
+void Code::setCode(std::vector<int> codeSet){
+    seq=codeSet;
+}
 int Code::checkIncorrect(Code *guess){
     std::vector<int> guessSeq=guess->getCode();
     int n=seq.size();

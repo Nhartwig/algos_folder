@@ -21,6 +21,7 @@ class Code{
         int checkCorrect(Code *guess);
         int checkIncorrect(Code *guess);
         std::vector<int> getCode();
+        void setCode(std::vector<int> codeSet);
 };
 
 
