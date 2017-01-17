@@ -26,7 +26,7 @@ Code::Code(int n , int m){
 }
 
 void Code::seqInitialize(int n, int m){
-    randomNumber rndA(0);
+    randomNumber rndA(1);
     for(int i=0; i<n;i=i+1){
         seq.push_back((int)rndA.random(m));
     }
