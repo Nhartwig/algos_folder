@@ -58,11 +58,8 @@ int Code::checkIncorrect(Code *guess){
     int n=seq.size();
     int incorrect=0;
     int hist[10]={0,0,0,0,0,0,0,0,0,0};
-    for( int i=0; i<n;i=i+1){
-        if(seq[i]!=guessSeq[i]){
-            incorrect=incorrect+1;
-        }
-    }
+   
+    
     
     return incorrect;
 }
