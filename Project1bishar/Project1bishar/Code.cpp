@@ -68,7 +68,7 @@ int Code::checkIncorrect(Code *guess){
     for( int i=0; i<n;i=i+1){
         if(posGood[i]==0){
             for(int j=0;j<n;j=j+1){
-                if((seq[j]==guessSeq[i])&&(i!=j)&&(posGood[i]!=1)){
+                if((seq[j]==guessSeq[i])&&(i!=j)&&(posGood[j]!=1)){
                     
                     hist[j]=1;
                 }
