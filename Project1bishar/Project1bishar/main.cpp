@@ -24,8 +24,13 @@ int main(int argc, const char * argv[]) {
     std::vector<int> guessCode;
     int temp[5];
     std::cout<<"Input Number Bettween 0-"<<m<<std::endl;
-    std::cin>>temp[0]>>temp[1]>>temp[2]>>temp[3]>>temp[4];
-    guessCode={temp[0],temp[1],temp[2],temp[3],temp[4]};
+         for( int i=0;i<n;i=i+1){
+             std::cin>>temp[i];
+             guessCode.push_back(temp[i]);
+         }
+         
+         
+         
     Code guessSeqinit(n,m);
     guessSeqinit.setCode(guessCode);
         int Cor=mastermindSeq.checkCorrect(&guessSeqinit);
