@@ -81,7 +81,7 @@ int Code::checkIncorrect(Code *guess){
 	std::vector<int> posGood;
 
 	//temporary vector for flagging duplicates when checking for correct element in incorrect position
-	std::vector<int> tempSeq(seq);
+	std::vector<int> tempSeq(10);
 
 	//first loop maps out instances of correct value and correct position in guess, 
 	//where 1 is correct, and 0 is incorrect. stored as array. 
@@ -107,16 +107,18 @@ int Code::checkIncorrect(Code *guess){
 			}
 			else
             {
-				if (guessSeq[k]==tempSeq[j]){
-					numIncorrect += 1;
-					tempSeq[k] = -1;
-					break;
+				if (guessSeq[k]==seq[j]){
+					tempSeq[guessSeq[k]] = 1;
 				}
 			}
 				
-		}	
+		}
+        
 	}
-	//third loop adds up the elements in the histogram array to 
+    for(int i=0;i<n;i++){
+        numIncorrect+=tempSeq[i];
+    }
+	//third loop adds up the elements in the histogram array to
 	//return the number of correct values, but in the incorrect position.
     
 	return numIncorrect;

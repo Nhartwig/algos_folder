@@ -45,21 +45,19 @@ int main(int argc, const char * argv[]) {
 	std::cout << "Please Input Secret Code Seperated by Spaces " <<n<<" Numbers"<< std::endl;
 	user_input(n, m, codeSet,"Secret");
 	mastermindSeq.setCode(codeSet);
-	
-
+    //declare a vector named guessCode
+	std::vector<int> guessCode;
+    //create an object for the guess sequence of class Code.
+    //input parameters of n and m, and then the code sequence itself
+    Code guessSeqinit(n,m);
 	//this loop gives the user 10 attempts to guess the correct code.
     for(int i=0;i<GAME_MAX_TURNS;i=i+1){
-	//declare a vector named guessCode
-    std::vector<int> guessCode;
 	//check to see if user input code elements are valid
+    guessCode.clear();
    	user_input(n, m, guessCode,"Guess");
 
-
-	//create an object for the guess sequence of class Code.
-	//the guess sequence object gets initialized with user 
-	//input parameters of n and m, and then the code sequence itself
+    //the guess sequence object gets initialized with user
 	//is set with the user's guess
-    Code guessSeqinit(n,m);
     guessSeqinit.setCode(guessCode);
 
 		//take guess sequence and pass it to the checkCorrect function
@@ -112,17 +110,23 @@ void user_input(int n, int m, std::vector<int> &code, std::string prompt) {
     int sucess=0;
     while(!sucess){
     code.clear();
+    int numLen=0;
     std::cout << "Enter numbers for the "<< prompt<<" sequence between 0 and " << m-1 <<" seperated by spaces" <<std::endl;
     for( int i=0; i<n;i++){
         std::cin>>temp;
         if(temp<m){
             code.push_back(temp);
             sucess=1;
+            numLen+=1;
         }else{
             std::cout<<"Input Range of Numbers Invalid Please Start Again"<<std::endl;
             sucess=0;
             break;
         }
+    }
+    if(numLen!=n){
+        sucess=0;
+        std::cout<<"Input length  of numbers start again"<<std::endl;
     }
     }
 }
