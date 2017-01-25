@@ -16,7 +16,6 @@ void user_input(int n, int m, std::vector<int> &code, std::string prompt);
 //bound checking function. not necessary, but may implement in the future.
 int bound_check(std::string prompt,int min = INT_MAX, int max=INT_MAX);
 
-
 //start of main function
 int main(int argc, const char * argv[]) {
     const int GAME_MAX_TURNS=10;
@@ -27,7 +26,7 @@ int main(int argc, const char * argv[]) {
     n=bound_check("Input Code Length(0-Max Int)",0);
 
 	// user prompted to enter integer range for input numbers
-    m=bound_check("Input Digit Range(0-10)",-1,11);
+    m=bound_check("Input Digit Range(0-10)",0,11);
 
 	//create object of the Code class, this is the secret code.
     Code mastermindSeq(n,m);
@@ -35,8 +34,6 @@ int main(int argc, const char * argv[]) {
 	//declaring and initializing a variable to use as a flag for winning. 
     int win=0;
     
-	
-	
 	//secret code setting function. allows user to set secret code. 
 	//designed for easy testing of the program. 
 	//takes as input a vector of numbers, assigns codeSet input vector to 
@@ -114,18 +111,32 @@ void user_input(int n, int m, std::vector<int> &code, std::string prompt) {
     std::cout << "Enter numbers for the "<< prompt<<" sequence between 0 and " << m-1 <<" seperated by spaces" <<std::endl;
     for( int i=0; i<n;i++){
         std::cin>>temp;
-        if(temp<m){
-            code.push_back(temp);
-            sucess=1;
-            numLen+=1;
+        if(std::cin.fail()){
+            std::cout<<"NOT A NUMBER!"<<std::endl;
+            std::cin.ignore(INT_MAX,'\n');
+            std::cin.clear();
+            fflush(stdin);
+            continue;
         }else{
-            std::cout<<"Input Range of Numbers Invalid Please Start Again"<<std::endl;
-            sucess=0;
-            break;
+            if(temp<m){
+                code.push_back(temp);
+                sucess=1;
+                numLen+=1;
+            }else{
+                std::cout<<"Input Range of Numbers Invalid Please Start Again"<<std::endl;
+                std::cin.ignore(INT_MAX,'\n');
+                std::cin.clear();
+                fflush(stdin);
+                sucess=0;
+                break;
+            }
         }
     }
     if(numLen!=n){
         sucess=0;
+        std::cin.clear();
+        std::cin.ignore(INT_MAX,'\n');
+        fflush(stdin);
         std::cout<<"Input length  of numbers start again"<<std::endl;
     }
     }
@@ -138,12 +149,24 @@ int bound_check(std::string prompt,int min , int max) {
     int temp=0;
     while(tr==1){
         std::cout<<prompt<<std::endl;
+       ;
         std::cin>>temp;
+        if(std::cin.fail()){
+            std::cout<<"NOT A NUMBER!"<<std::endl;
+            std::cin.clear();
+            std::cin.ignore(INT_MAX,'\n');
+            fflush(stdin);
+            continue;
+        }
+        else{
         if(temp>min&&temp<max){
             tr=0;
             
         }else{
             std::cout<<"Number not incorrect range please renter"<<std::endl;
+            std::cin.clear();
+            fflush(stdin);
+        }
         }
         
     }
