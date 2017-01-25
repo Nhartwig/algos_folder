@@ -7,7 +7,6 @@
 //
 
 #include "Code.hpp"
-#include "d_random.h"
 #include <ctime>
 /*class Code{
 private:
@@ -34,7 +33,7 @@ Code::Code(int n ,int m){
 //sequence initialize takes input values n and m as parameters to generate 
 //random numbers, which are pushed to the back of the sequence vector
 void Code::seqInitialize(int n, int m){
-    randomNumber rndA(1);
+    //randomNumber rndA(1);
     srand( time(0));
     for(int i=0; i<n;i=i+1){
         seq.push_back((rand()%(m-1)));
@@ -78,9 +77,7 @@ int Code::checkIncorrect(Code *guess){
     std::vector<int> guessSeq=guess->getCode();
 
     int n=seq.size();
-	
 	int numIncorrect = 0;
-
 	std::vector<int> posGood;
 
 	//temporary vector for flagging duplicates when checking for correct element in incorrect position
@@ -109,8 +106,8 @@ int Code::checkIncorrect(Code *guess){
 				continue;
 			}
 			else
-			{
-				if (guessSeq[j]==tempSeq[k]){
+            {
+				if (guessSeq[k]==tempSeq[j]){
 					numIncorrect += 1;
 					tempSeq[k] = -1;
 					break;

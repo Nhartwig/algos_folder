@@ -11,28 +11,23 @@
 #include <vector>
 
 //function header for checking if user inputs valid parameters for code
-void user_input(int n, int m, std::vector<int> &code);
+void user_input(int n, int m, std::vector<int> &code, std::string prompt);
 
 //bound checking function. not necessary, but may implement in the future.
-int bound_check(int min, int max, int input);
-
+int bound_check(std::string prompt,int min = INT_MAX, int max=INT_MAX);
 
 
 //start of main function
 int main(int argc, const char * argv[]) {
-    
+    const int GAME_MAX_TURNS=10;
     int n=0,m=0;
     std::cout<<"Welecome to Master Mind Code Game"<<std::endl;
 
 	//user prompted to enter code length
-    std::cout<<"Input Code Length"<<std::endl;
-    std::cin>>n; 
+    n=bound_check("Input Code Length(0-Max Int)",0);
 
 	// user prompted to enter integer range for input numbers
-    std::cout<<"Code Range (max can be 10)"<<std::endl;
-    std::cin>>m;
-	//bound_check(0, m); look at bound checking function later, not necessary, but implement if you have time
-	
+    m=bound_check("Input Digit Range(0-10)",-1,11);
 
 	//create object of the Code class, this is the secret code.
     Code mastermindSeq(n,m);
@@ -41,27 +36,23 @@ int main(int argc, const char * argv[]) {
     int win=0;
     
 	
-	/*
+	
 	//secret code setting function. allows user to set secret code. 
 	//designed for easy testing of the program. 
 	//takes as input a vector of numbers, assigns codeSet input vector to 
 	//private data member seq. 
 	std::vector<int> codeSet;
-	std::cout << "please enter the secret code" << std::endl;
-	for (int i = 0; i < n; i++) {
-		int z = 0;
-		std::cin >> z;
-		codeSet.push_back(z);
-	}
+	std::cout << "Please Input Secret Code Seperated by Spaces " <<n<<" Numbers"<< std::endl;
+	user_input(n, m, codeSet,"Secret");
 	mastermindSeq.setCode(codeSet);
-	*/
+	
 
 	//this loop gives the user 10 attempts to guess the correct code.
-    for(int i=0;i<10;i=i+1){
+    for(int i=0;i<GAME_MAX_TURNS;i=i+1){
 	//declare a vector named guessCode
     std::vector<int> guessCode;
 	//check to see if user input code elements are valid
-   	user_input(n, m, guessCode);
+   	user_input(n, m, guessCode,"Guess");
 
 
 	//create an object for the guess sequence of class Code.
@@ -115,44 +106,43 @@ int main(int argc, const char * argv[]) {
 //of the guess sequence are valid, i.e, number of elements entered 
 //does not exceed n, and each element is not greater than the
 //maximum range of the code m
-void user_input(int n, int m, std::vector<int> &code) {
-	std::cout << "Please enter numbers for the code sequence between 0 and" << m-1 << std::endl;
-	int j;
-	int wrong=1;
-	while (wrong >0){
-	code.clear();
-	wrong = 0;
-	for (int i = 0; i < n; i++) {
-		std::cin >> j;
-		if(j<m){ 
-			code.push_back(j);
-		}
-		else {
-			wrong = 1;
-			}		
-		}
-	}
+void user_input(int n, int m, std::vector<int> &code, std::string prompt) {
+	
+    int temp;
+    int sucess=0;
+    while(!sucess){
+    code.clear();
+    std::cout << "Enter numbers for the "<< prompt<<" sequence between 0 and " << m-1 <<" seperated by spaces" <<std::endl;
+    for( int i=0; i<n;i++){
+        std::cin>>temp;
+        if(temp<m){
+            code.push_back(temp);
+            sucess=1;
+        }else{
+            std::cout<<"Input Range of Numbers Invalid Please Start Again"<<std::endl;
+            sucess=0;
+            break;
+        }
+    }
+    }
 }
 
-/*
+
 // bound checking function for code number range m //
-int bound_check(int min, int max) {
-	int m;
-	int correct=0;
-	while (correct == 0) {
-		std::cout << "Please enter a number within the correct range " << std::endl;
-		if((m<max) && (m>min)) {
-		return m;
-		}
-		else
-		{
-			correct++;
-			std::cout << "Number wasn't in range, please re-enter a number: " << std::endl;
-		}
-	}
-	
-
-
-	
-}*/
+int bound_check(std::string prompt,int min , int max) {
+    int tr=1;
+    int temp=0;
+    while(tr==1){
+        std::cout<<prompt<<std::endl;
+        std::cin>>temp;
+        if(temp>min&&temp<max){
+            tr=0;
+            
+        }else{
+            std::cout<<"Number not incorrect range please renter"<<std::endl;
+        }
+        
+    }
+    return temp;
+}
 

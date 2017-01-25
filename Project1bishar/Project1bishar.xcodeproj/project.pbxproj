@@ -28,7 +28,6 @@
 		39BAD6591E2EBE75003870E3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		39BAD6601E2EBE87003870E3 /* Code.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Code.cpp; sourceTree = "<group>"; };
 		39BAD6611E2EBE87003870E3 /* Code.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Code.hpp; sourceTree = "<group>"; };
-		39BAD6631E2EC632003870E3 /* d_random.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = d_random.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +63,6 @@
 				39BAD6591E2EBE75003870E3 /* main.cpp */,
 				39BAD6601E2EBE87003870E3 /* Code.cpp */,
 				39BAD6611E2EBE87003870E3 /* Code.hpp */,
-				39BAD6631E2EC632003870E3 /* d_random.h */,
 			);
 			path = Project1bishar;
 			sourceTree = "<group>";
@@ -254,6 +252,7 @@
 				39BAD65F1E2EBE75003870E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
