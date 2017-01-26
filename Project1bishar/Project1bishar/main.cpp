@@ -44,10 +44,10 @@ int main(int argc, const char * argv[])
 	//designed for easy testing of the program. 
 	//takes as input a vector of numbers, assigns codeSet input vector to 
 	//private data member seq. 
-	std::vector<int> codeSet;
-	std::cout << "Please Input Secret Code Seperated by Spaces " << n <<" Numbers"<< std::endl;
-	user_input(n, m, codeSet,"Secret");
-	mastermindSeq.setCode(codeSet);
+	//std::vector<int> codeSet;
+	//std::cout << "Please Input Secret Code Seperated by Spaces " << n <<" Numbers"<< std::endl;
+	//user_input(n, m, codeSet,"Secret");
+	//mastermindSeq.setCode(codeSet);
     
     
     //declare a vector for the guess code

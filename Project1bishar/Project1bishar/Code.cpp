@@ -6,9 +6,8 @@
 //Deceleration for checkCorrect,checkIncorrect, setCode,printCode,getCode
 //Code constructor and seqInitialize
 #include "Code.hpp"
-#include <ctime>
-
-
+#include "d_random.h"
+#include <math.h>
 
 Code::Code(int n ,int m)
 //Code Class Constructor inputting n and m
@@ -31,11 +30,11 @@ void Code::seqInitialize(int n, int m)
 //back of the sequence vector using time random class
 //Post sequenece vector with random code generated
 {
-    //randomNumber rndA(1);
-    srand( time(0));
+    randomNumber rndA(0);
+    
     for (int i = 0; i < n; i = i + 1)
     {//For loop through number of digits
-        seq.push_back((rand() % (m - 1)));//Generates a random code via modulus
+        seq.push_back((int(fabs(rndA.frandom()))% (m - 1)));//Generates a random code via modulus
         //Range(0,m-1) and push onto vecotor
     }
 }
