@@ -161,8 +161,12 @@ void Code::printCode() const{
 //No users inputs just couts all the secret codes elements
 //function is const since nothing should be modified
 	int n = seq.size();//Get number of digits in code
+    std::cout<<"Secret Code"<<std::endl;
+    std::cout<<"{";
 	for ( int i = 0; i < n; i++)
     {//loop through digits in code
-		std::cout << seq[i] << " ";//prints out each digit in code
+        
+		std::cout << seq[i] << ",";//prints out each digit in code
 	}
+    std::cout<<"}"<<std::endl;
 }
