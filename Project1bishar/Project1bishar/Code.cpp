@@ -110,15 +110,12 @@ void Code::setCode(std::vector<int> codeSet)
 int Code::checkIncorrect(Code *guess)
 {
     std::vector<int> guessSeq = guess->getCode();	// gets the guess code containing guessVector
-    
     int n = seq.size();								// Returns number of digits
     int numIncorrect = 0;							// counter for number of digits in incorrect location
     std::vector<int> posGood;						// posGood is flag for digit in correct location for two seq.
+	std::vector<int> tempSeq(seq);					// temporary vector containing same elements as secret code
     
-    
-	// hist is a histogram for digits with values only 0 or 1
-	// Based on digits that are incorrect a flag is set for that digit in this array
-    std::vector<int> hist(10);
+
     
     // first loop maps out instances of correct value and correct position in guess,
     // where 1 is correct, and 0 is incorrect. stored as vector.
@@ -136,35 +133,28 @@ int Code::checkIncorrect(Code *guess)
 	 // checks first to identify if at the current counter position,
      // there has already been a value that is correct and in correct position, from posGood map.
      // if so, it breaks out of the loop and skips to the next counter position.
-     // else, if the values of guess and secret code are equal, a 1 is entered for that value in a histogram array.
-     // histogram array has spaces for 0 to 9, maps number of times the guess has a right number, that is
-     // not already in the correct position
-    for (int j = 0; j < n; j++)					// first loop through one guesses digits
+     // else, if the values of guess and secret code are equal, -1 is entered for that position in temp seq
+    for(int j = 0; j < n; j++)					// first loop through one guesses digits
     {
-        
         for (int k = 0; k < n; k++)				// second loop through secret codes digits
         {
-            if (posGood[j] == 1 || posGood[k] == 1 || j == k) // if already in correct position skip
+            if (posGood[j] == 1 || posGood[k] == 1) // if already in correct position skip
 			{
-                continue;						// skips to next point in array
+                continue;									  // skips to next point in array
             }
             else
             {
-                if (guessSeq[k] == seq[j])		// checks if guess and secret code are equal for given code
+                if (guessSeq[j] == tempSeq[k])		// checks if guess and secret code are equal for given code
                 {
-                    hist[guessSeq[k]] = 1;		// sets given digit in histogram to one
+					numIncorrect = numIncorrect + 1;// add up last counter value in numIncorrect
+					tempSeq[k] = -1;				// sets given digit in temp seq to -1, so cannot be counted again
+					break;
                 }
             }
             
         } // end inner for loop
         
     }	// end outer for loop
-    
-    // loop used to add up histogram array incorrect digits
-    for(int i = 0;i < n;i++)	 // loop through number of digits
-    {
-        numIncorrect += hist[i]; // adds flagged incorrect digits to incorrect counter
-    }
         
     return numIncorrect;		 // returns number of incorrect digits
 } // end check inCorrect function
@@ -181,7 +171,6 @@ void Code::printCode() const{
     std::cout<<"{";
 	for ( int i = 0; i < n; i++)	// loop through digits in code
     {
-        
 		std::cout << seq[i] << ","; // prints out each digit in code
 	}
     std::cout<<"}"<<std::endl;
