@@ -22,9 +22,8 @@
 Code::Code(int n ,int m)
 {
     seqInitialize(n, m);// Call to seqIntialize to create random vector
+    
 }
-
-
 
 
 // Sequence intialize inputting n and m

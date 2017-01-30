@@ -11,70 +11,62 @@
 // Code Class deals with the interface of generating codes and checking the guess against secret code
 #include <stdio.h>
 #include <iostream>
-#include "Code.hpp"
+#include "mastermind.h"
 #include <vector>
 
 
-
-
+int bound_check(std::string prompt, int min = INT_MAX, int max=INT_MAX);
 // start of main function
 int main(int argc, const char * argv[])
 {
-    int n = 5,m = 7;	// Intialize number of digits
-    std::cout << "Welecome to Master Mind Code Game" << std::endl;
-
-	// create object of Code class, this is the secret code
-    Code mastermindSeq(n, m);
-
-    // declare vectors for user's guess code
-    std::vector<int> guessCodeOne = {5, 0, 3, 2, 6};
-    std::vector<int> guessCodeTwo = {2, 1, 2, 2, 2};
-    std::vector<int> guessCodeThree = {1, 3, 3, 4, 5};
-
-	// Counter variables for correct and incorrect
-    int cor, inCor;				
-
-    // create an object for the guess sequence of class Code.
-    // input parameters of n, m, and the code sequence itself
-    Code guessSeqinit(n, m);
-
-    guessSeqinit.setCode(guessCodeOne);
-
-    // take guess sequence, pass to checkCorrect function
-    // then assign the output to the counter variable Cor
-    cor = mastermindSeq.checkCorrect(&guessSeqinit);
-
-    // take guess sequence, pass to checkIncorrect function
-    // then assign the output to the counter variable inCor
-    inCor = mastermindSeq.checkIncorrect(&guessSeqinit);
-    std::cout << "CALLING FOR GUESS {5, 0, 3, 2, 6}" << std::endl;
-    std::cout << "Correct: " << cor << " Incorrect: " << inCor << std::endl;
-    guessSeqinit.setCode(guessCodeTwo);
-
-    // take guess sequence, pass to checkCorrect function
-    // then assign the output to the counter variable Cor
-     cor = mastermindSeq.checkCorrect(&guessSeqinit);
-
-    // take guess sequence, pass to checkIncorrect function
-    // then assign the output to the counter variable inCor
-    inCor = mastermindSeq.checkIncorrect(&guessSeqinit);
-    std::cout << "CALLING FOR GUESS {2, 1, 2, 2, 2}" << std::endl;
-    std::cout << "Correct: " << cor << " Incorrect: " << inCor << std::endl;
-    guessSeqinit.setCode(guessCodeThree);
-
-    // take guess sequence, pass to checkCorrect function
-    // then assign the output to the counter variable Cor
-     cor = mastermindSeq.checkCorrect(&guessSeqinit);
-
-    // take guess sequence, pass to checkIncorrect function
-    // then assign the output to the counter variable inCor
-    inCor = mastermindSeq.checkIncorrect(&guessSeqinit);
-    std::cout << "CALLING FOR GUESS {1, 3, 3, 4, 5}" << std::endl;
-    std::cout << "Correct: " << cor << " Incorrect: " << inCor << std::endl;
-
-    mastermindSeq.printCode();	// print the secret code at end of game
-
-	return 0;
+    int n=0,m=0;
+    std::cout<<"Welecome to Master Mind Code Game"<<std::endl;
+    
+    n = bound_check("Input Code Length(0-Max Int)", 0);
+    
+    //user prompted to enter code range within bound 0 and 10
+    //will reprompt if incorrect input
+    m = bound_check("Input Digit Range(0-10)", -1, 11);
+    
+    mastermind one(n,m);
+    one.playGame();
+    return 0;
 
 } // end of int main
 
+// bound checking function for code number range m //
+int bound_check(std::string prompt, int min , int max)
+{
+    int tr = 1;//flag used for remprompt of input
+    int temp = 0;//holds temporary number for returning if in bound
+    while (tr == 1)
+    {//repeat loop till correct input in bound
+        std::cout << prompt << std::endl;//prints the prompt
+        
+        std::cin >> temp;//inputs from keyboard single number
+        if (std::cin.fail())
+        {//checks if input is a failure
+            std::cout << "NOT A NUMBER!" << std::endl;//prints not number
+            std::cin.clear();//clears buffer
+            std::cin.ignore(INT_MAX,'\n');//ignores error
+            fflush(stdin);//flushes input
+            continue;//contiune through
+        }
+        else
+        {
+            if (temp > min && temp < max)
+            {//checks if temp within min and max
+                tr=0;//sets flag to 0 for sucess
+                
+            }
+            else
+            {// user is incorrect range
+                std::cout << "Number not incorrect range please renter" << std::endl;
+                std::cin.clear();//clears buffer
+                fflush(stdin);//flushes input
+            }
+        }
+        
+    }//end while loop
+    return temp;//returns integer value in bounds
+}

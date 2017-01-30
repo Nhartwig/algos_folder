@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef response_h
-#define response_h
+#ifndef mastermind_h
+#define mastermind_h
 
 #include <stdio.h>
 #include <vector>
@@ -16,14 +16,17 @@
 class mastermind {
 	private:
 		Code nate;
-	public:	
+        int n,m;
+	public:
 		mastermind(int n, int m);
 		mastermind();
 		void printSecretCode();
 		Code humanGuess();
-		response getResponse(Code guessCode, Code secretCode);
+		response getResponse(Code *guessCode);
 		bool isSolved(response user_response);
 		void playGame();
+        int getN();
+        int getM();
 
 };
 

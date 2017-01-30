@@ -49,8 +49,8 @@ public:
 
 	// boolean type overloaded operator function to check if responses are equal
 	// the input is a response object, and gets compared to the response values in the currect object
-	/*bool response::operator==(response& response_one){
-		if (((response_one.getCorrect()) == (this->getCorrect())) && ((response_one.getIncorrect()) == (this->getIncorrect()))) {
+	bool operator==(response& response_one,response& response_two){
+		if (((response_one.getCorrect()) == (response_two.getCorrect())) && ((response_one.getIncorrect()) == (response_two.getIncorrect()))) {
 			return true;
 			}
 		else
@@ -60,11 +60,11 @@ public:
 
 
 	// overloaded operator function to cout the number of correct and incorrect to the player
-	std::ostream& response::operator<<(std::ostream& ostr, response& print_response){
+	std::ostream& operator<<(std::ostream& ostr, response& print_response){
 		ostr << " number of correct elements is: " << print_response.getCorrect() << std::endl;
 		ostr << " number of correct elements in incorrect position is" << print_response.getIncorrect() << std::endl;
 		return ostr;
-	}*/
+	}
 
 
 

@@ -27,9 +27,9 @@ class response {
 
 		void setIncorrect(int incor);
 		
-		//bool operator== (response& response_one);
+		friend bool operator== (response& response_one,response& response_two);
 
-		//friend std::ostream&  operator<<(std::ostream& ostr, response& print_response);
+		friend std::ostream&  operator<<(std::ostream& ostr, response& print_response);
 
 };
 
