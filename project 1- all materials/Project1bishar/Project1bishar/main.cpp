@@ -29,6 +29,8 @@ int main(int argc, const char * argv[])
     m = bound_check("Input Digit Range(0-10)", -1, 11);
     
     mastermind one(n,m);
+   
+    
     one.playGame();
     return 0;
 

@@ -27,10 +27,10 @@ class Code{
         int n,m;
 		// Intialize sequence vector.
 		// Intial values are 1 since 0 would be no game at all
-        void seqInitialize(int n = 1, int m = 1); 
+        void seqInitialize(int n = 1, int m = 4);
     public:
 		// constructor to make object, intialize vector
-        Code(int n = 1, int m = 1);
+        Code(int n = 1, int m = 4);
 
 		// check right digits in right location
         int checkCorrect(Code *guess);

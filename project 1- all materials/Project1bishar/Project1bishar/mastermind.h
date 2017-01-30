@@ -18,7 +18,7 @@ class mastermind {
 		Code nate;
         int n,m;
 	public:
-		mastermind(int n, int m);
+		mastermind(int nA, int mA);
 		mastermind();
 		void printSecretCode();
 		Code humanGuess();

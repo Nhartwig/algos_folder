@@ -25,9 +25,9 @@ int mastermind::getN(){
     return n;
 }
 
-mastermind::mastermind(int n,int m){
-    n=n;
-    m=m;
+mastermind::mastermind(int nA,int mA){
+    n=nA;
+    m=mA;
     
 }
 mastermind::mastermind(){
@@ -42,28 +42,62 @@ void mastermind::printSecretCode(){
     
 }
 Code mastermind::humanGuess(){
+    std::string prompt="Guess";
+    std::vector<int> code;
     int n=this->getN();
     int m=this->getM();
-    std::vector<int> code;
-    std::cout << "Please enter numbers for the code sequence between 0 and" << (m)-1 << std::endl;
-    int j;
-    int wrong=1;
-    while (wrong >0){
+    int temp;//Temporary variable used to hold user input
+    int sucess = 0;//sucess is a flag for all input good
+    while (!sucess){//repeat this until sucessful input
         code.clear();
-        wrong = 0;
-        for (int i = 0; i < n; i++) {
-            std::cin >> j;
-            if(j<m){
-                code.push_back(j);
+        int numLen = 0;//counter for number of digits
+        std::cout << "Enter numbers for the "<< prompt<<" sequence between 0 and " << m-1 << " seperated by spaces" << std::endl;
+        //Prompt for user input
+        for ( int i = 0; i < n;i++)
+        {//for loop through the input digits
+            std::cin >> temp;//gets the digit in cin buffer
+            if (std::cin.fail())
+            {//checks if this is not an integer
+                std::cout << "NOT A NUMBER!" << std::endl;//if so print not an number
+                std::cin.ignore(INT_MAX,'\n');//ignores error
+                std::cin.clear();//clears the buffer for cin
+                fflush(stdin);//flushes buffer for cin
+                continue;//repeats prompt sequence
             }
-            else {
-                wrong = 1;
+            else
+            {
+                if (temp < m && temp > -1)
+                {//Checks if digits are less than m and greater than -1
+                    code.push_back(temp);//pushes element onto vector
+                    sucess = 1;//sets sucess vector to 1
+                    numLen += 1;//increases length vector
+                }
+                else
+                {
+                    std::cout << "Input Range of Numbers Invalid Please Start Again" << std::endl;
+                    //output the prompt for incorrect number range
+                    std::cin.ignore(INT_MAX,'\n');//ignores error
+                    std::cin.clear();//clears the buffer for cin
+                    fflush(stdin);//flushes buffer for cin
+                    sucess = 0;//unsucessful input
+                    break;//breaks and restarts
+                }
             }
+        }//end for loop
+        if (numLen != n)
+        {//number of length and n are not same error
+            sucess = 0;//sets sucess to 0
+            std::cin.clear();//clears the buffer for cin
+            std::cin.ignore(INT_MAX,'\n');//ignores error
+            fflush(stdin);//flushes buffer for cin
+            std::cout << "Input length  of numbers start again" << std::endl;//restart number input
         }
-    }
+    }//end while loop
+    
     Code ret(n,m);
     ret.setCode(code);
     return ret;
+    
 }
 
 
@@ -100,4 +134,5 @@ void mastermind::playGame(){
         }
         
     }
+    std::cout<<"YOU WIN NIGGA"<<std::endl;
 }

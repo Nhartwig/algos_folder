@@ -13,7 +13,6 @@
 #include <math.h>
 
 
-
 // Code Class Constructor inputting n and m
 // Where n is the number of digits in code(>0)
 // Where m is the range of digits in code(0,m-1)s.t.m>=0
