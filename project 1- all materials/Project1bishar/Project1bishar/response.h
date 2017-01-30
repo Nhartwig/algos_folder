@@ -7,6 +7,7 @@
 #include <iostream>
 #include <ostream>
 
+// class response, stores the response to a guess (num correct and num incorrect)
 class response {
 		
 	private:
@@ -26,16 +27,10 @@ class response {
 
 		void setIncorrect(int incor);
 		
-		bool operator== (response& response_one);
+		//bool operator== (response& response_one);
 
-		friend std::ostream&  operator<<(std::ostream& ostr, response& print_response);
+		//friend std::ostream&  operator<<(std::ostream& ostr, response& print_response);
 
 };
-
-
-
-
-
-
 
 #endif
