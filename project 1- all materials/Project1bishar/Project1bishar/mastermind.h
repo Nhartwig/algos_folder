@@ -22,6 +22,8 @@ class mastermind {
 		void printSecretCode();
 		Code humanGuess();
 		response getResponse(Code guessCode, Code secretCode);
+		bool isSolved(response user_response);
+		void playGame();
 
 };
 
