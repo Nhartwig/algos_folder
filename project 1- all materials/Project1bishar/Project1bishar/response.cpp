@@ -7,19 +7,6 @@
 #include <vector>
 
 
-/*class response {
-private:
-	int numIncor;
-	int numCor;
-public:
-	response(int numIncor = 0, int numCor = 0);
-	int getIncorrect();
-	int getCorrect();
-	void setIncorrect(int incor);
-	void setCorrect(int cor);
-	bool operator== (const response& lhs, const response& rhs);
-	void operator<< (ostream& ostr, const response& Response);
-};*/
 
 	// constructor intializes reponse class with 0 for num incorrect and num correct
 	response::response(int numIncor, int numCor) {
@@ -50,7 +37,7 @@ public:
 	// boolean type overloaded operator function to check if responses are equal
 	// the input is a response object, and gets compared to the response values in the currect object
 	bool operator==(response& response_one,response& response_two){
-		if (((response_one.getCorrect()) == (response_two.getCorrect())) && ((response_one.getIncorrect()) == (response_two.getIncorrect()))) {
+		if (((response_one.numCor) == (response_two.numCor)) && ((response_one.numIncor) == (response_two.numIncor))) {
 			return true;
 			}
 		else
@@ -61,8 +48,8 @@ public:
 
 	// overloaded operator function to cout the number of correct and incorrect to the player
 	std::ostream& operator<<(std::ostream& ostr, response& print_response){
-		ostr << " number of correct elements is: " << print_response.getCorrect() << std::endl;
-		ostr << " number of correct elements in incorrect position is" << print_response.getIncorrect() << std::endl;
+		ostr << "Number of correct elements is: " << print_response.numCor << std::endl;
+		ostr << "Number of correct elements in incorrect position is " << print_response.numIncor << std::endl;
 		return ostr;
 	}
 

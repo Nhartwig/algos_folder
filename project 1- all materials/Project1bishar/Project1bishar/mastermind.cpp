@@ -34,18 +34,16 @@ mastermind::mastermind(){
     n=5;
     m=10;
     
-  
-    
 }
+
 void mastermind::printSecretCode(){
-    nate.printCode();
+    gameCode.printCode();
     
 }
+
 Code mastermind::humanGuess(){
     std::string prompt="Guess";
     std::vector<int> code;
-    int n=this->getN();
-    int m=this->getM();
     int temp;//Temporary variable used to hold user input
     int sucess = 0;//sucess is a flag for all input good
     while (!sucess){//repeat this until sucessful input
@@ -102,15 +100,14 @@ Code mastermind::humanGuess(){
 
 
 response mastermind::getResponse(Code *guessCode){
-    int cor=nate.checkCorrect(guessCode);
-    int inCor=nate.checkIncorrect(guessCode);
+    int cor=gameCode.checkCorrect(guessCode);
+    int inCor=gameCode.checkIncorrect(guessCode);
     response retCode(inCor,cor);
     return retCode;
 }
 
 
 bool mastermind::isSolved(response user_response){
-    int n=this->getN();
     if(n==user_response.getCorrect()){
         return true;
     }else{
@@ -119,20 +116,25 @@ bool mastermind::isSolved(response user_response){
 }
 
 void mastermind::playGame(){
-    Code secretCode(this->getN(),this->getM());
+    Code secretCode(n,m);
     std::vector<int> sec=secretCode.getCode();
-    nate.setCode(sec);
-    this->printSecretCode();
     const int MAX_TURNS=10;
+    int turns=0;
+    gameCode.setCode(sec);
+    printSecretCode();
     int win=0;
-    while(win==0){
-        Code guessCode=this->humanGuess();
-        response one=this->getResponse(&guessCode);
+    while(win==0||MAX_TURNS==turns){
+        Code guessCode=humanGuess();
+        response one=getResponse(&guessCode);
         std::cout<<one;
-        if(this->isSolved(one)){
+        if(isSolved(one)){
             win=1;
         }
-        
+        turns=turns+1;
     }
-    std::cout<<"YOU WIN NIGGA"<<std::endl;
+    if(win==1){
+    std::cout<<"YOU WIN"<<std::endl;
+    }else{
+    std::cout<<"YOU LOSE"<<std::endl;    
+    }
 }

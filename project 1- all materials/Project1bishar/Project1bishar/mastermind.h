@@ -15,7 +15,7 @@
 // handles the playing of the game.
 class mastermind {
 	private:
-		Code nate;
+		Code gameCode;
         int n,m;
 	public:
 		mastermind(int nA, int mA);
