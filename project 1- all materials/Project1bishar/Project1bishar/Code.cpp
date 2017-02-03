@@ -12,7 +12,6 @@
 #include "d_random.h"
 #include <math.h>
 
-
 // Code Class Constructor inputting n and m
 // Where n is the number of digits in code(>0)
 // Where m is the range of digits in code(0,m-1)s.t.m>=0
@@ -34,7 +33,7 @@ Code::Code(int n ,int m)
 // Post sequence vector with random code generated
 void Code::seqInitialize(int n, int m)
 {
-    randomNumber rndA(-2);
+    randomNumber rndA(0);
     
     for (int i = 0; i < n; i = i + 1)	// For loop through number of digits
     {
@@ -43,7 +42,7 @@ void Code::seqInitialize(int n, int m)
         if(m==1){
             seq.push_back(0);
         }else{
-            seq.push_back((int(fabs(rndA.frandom()))% (m - 1)));
+            seq.push_back((int(fabs(rndA.random()))% (m)));
         }
     }
 }
