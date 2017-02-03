@@ -64,7 +64,7 @@
 	// The inputs are responses, and get compared to the response values in the objects.
 	// Checks the number of correct and incorrect in each objects and checks if they are equal
 	// therefore returning the value of true or false.
-	bool operator==(response& response_one,response& response_two)
+	bool operator == (response& response_one,response& response_two)
     {
 		// checks number of correct and incorrect in each object and tests if they are equal        
         if (((response_one.numCor) == (response_two.numCor)) && ((response_one.numIncor) == (response_two.numIncor))) 

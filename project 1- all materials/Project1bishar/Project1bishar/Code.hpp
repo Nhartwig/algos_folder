@@ -24,7 +24,7 @@ class Code{
 	// ability to intialize random vector.
 	private:
         std::vector<int> seq;	// Code or Guess sequence
-        int n,m;
+        int n, m;
 		// Intialize sequence vector.
 		// Intial values are 1 since 0 would be no game at all
         void seqInitialize(int n = 1, int m = 4);

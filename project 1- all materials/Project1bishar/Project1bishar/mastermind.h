@@ -35,7 +35,7 @@ class mastermind {
 		// Checks for number correct and incorrect between guessCode and secretCode
 		// Function returns an object getResponse containing number correct and number incorrect
 		// This is of the class response.
-        response getResponse(Code *guessCode);       
+        response getResponse(Code *guessCode,Code *secretCode);
 
 		// isSolved function checks the user response and sees if these values
 		// are the same, therefore returning a bool if completely solved

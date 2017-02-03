@@ -39,7 +39,7 @@ void Code::seqInitialize(int n, int m)
     {
 		// Generates random code via modulus
 		// Range(0,m-1) and push onto vector
-        if(m==1){
+        if(m == 1){
             seq.push_back(0);
         }else{
             

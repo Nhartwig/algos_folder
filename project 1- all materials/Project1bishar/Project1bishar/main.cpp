@@ -24,7 +24,7 @@ int main(int argc, const char * argv[])
 {
     int n=0,m=0;
     
-    std::cout<<"Welcome to Master Mind Code Game"<<std::endl;
+    std::cout << "Welcome to Master Mind Code Game" << std::endl;
 
     // user prompted to enter code range within bound 0 and MAX Int
     // will reprompt if input is incorrect.
