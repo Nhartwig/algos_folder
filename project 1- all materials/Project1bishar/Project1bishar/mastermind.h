@@ -17,14 +17,16 @@ class mastermind {
 	private:
 		Code gameCode;
         int n,m;
+        response getResponse(Code *guessCode);
+        bool isSolved(response user_response);
+        void printSecretCode();
+        Code humanGuess();
+    
+    void playGame();
 	public:
 		mastermind(int nA, int mA);
 		mastermind();
-		void printSecretCode();
-		Code humanGuess();
-		response getResponse(Code *guessCode);
-		bool isSolved(response user_response);
-		void playGame();
+		
 
 };
 

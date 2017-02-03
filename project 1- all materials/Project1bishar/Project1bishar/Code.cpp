@@ -34,13 +34,17 @@ Code::Code(int n ,int m)
 // Post sequence vector with random code generated
 void Code::seqInitialize(int n, int m)
 {
-    randomNumber rndA(0);
+    randomNumber rndA(-2);
     
     for (int i = 0; i < n; i = i + 1)	// For loop through number of digits
     {
 		// Generates random code via modulus
 		// Range(0,m-1) and push onto vector
-        seq.push_back((int(fabs(rndA.frandom()))% (m - 1)));
+        if(m==1){
+            seq.push_back(0);
+        }else{
+            seq.push_back((int(fabs(rndA.frandom()))% (m - 1)));
+        }
     }
 }
 

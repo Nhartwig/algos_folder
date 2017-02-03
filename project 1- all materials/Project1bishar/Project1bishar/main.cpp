@@ -52,7 +52,7 @@ int bound_check(std::string prompt, int min , int max)
 //returned is a integer that is within the values of min and max
 //this value is ensured to be an int in this range by performing
 //number checking operations and flushing the cin buffer is there
-//is something inccorect
+//is something inccorect occured 
 {
     int tr = 1;//flag used for remprompt of input
     int temp = 0;//holds temporary number for returning if in bound

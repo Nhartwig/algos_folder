@@ -58,12 +58,12 @@ Code mastermind::humanGuess()
 //be initialized parmeters with values(n,m and secret code)
 //function ensures correct user io through 
 {
-    std::string prompt="Guess";
-    std::vector<int> code;
+    std::string prompt="Guess";//prompt for users about that this is for a guess
+    std::vector<int> code;//vector to hold the guess code
     int temp;//Temporary variable used to hold user input
     int sucess = 0;//sucess is a flag for all input good
     while (!sucess){//repeat this until sucessful input
-        code.clear();
+        code.clear();//clears the guess code if incorrect from past iterations
         int numLen = 0;//counter for number of digits
         std::cout << "Enter numbers for the "<< prompt<<" sequence between 0 and " << m-1 << " seperated by spaces" << std::endl;
         //Prompt for user input
@@ -76,7 +76,7 @@ Code mastermind::humanGuess()
                 std::cin.ignore(INT_MAX,'\n');//ignores error
                 std::cin.clear();//clears the buffer for cin
                 fflush(stdin);//flushes buffer for cin
-                continue;//repeats prompt sequence
+                continue;//repeats prompt sequence used for inccorect input
             }
             else
             {
@@ -108,49 +108,79 @@ Code mastermind::humanGuess()
         }
     }//end while loop
     
-    Code ret(n,m);
-    ret.setCode(code);
-    return ret;
+    Code ret(n,m);//Creates a Code object to be returned with n m value
+    ret.setCode(code);//Sets the code to the code that is contained in vector
+    return ret;//returns this code object to user
     
 }
 
 
-response mastermind::getResponse(Code *guessCode){
+response mastermind::getResponse(Code *guessCode)
+//getResponese is a function that gets a guessCode as
+//an input and is called on a gameCode which compares
+//the guessCode and gameCode to see if correct or not
+//returns a responese object which contains the values
+//of incorrect and correct which is then returned using
+//this function, guess code is assumed to be initialized with
+//a sequenece vector along with the gameCode
+{
+    //gets the correct values for gameCode compared to guesCode
     int cor=gameCode.checkCorrect(guessCode);
+    //gets the incorrect values for gameCode compared to guesCode
     int inCor=gameCode.checkIncorrect(guessCode);
+    //creates responese object with parameters correct and incorrect
     response retCode(inCor,cor);
+    //returns the respones object containg the responese for this code
     return retCode;
 }
 
 
-bool mastermind::isSolved(response user_response){
-    if(n==user_response.getCorrect()){
-        return true;
+bool mastermind::isSolved(response user_response)
+//is solved is a function that compares the user respones object
+//that contains the correct and incorrect value for a guessCode
+//gameCode pair and then sees if the correct value is equal to
+//the number of total digits therefore the  code is solved otherwise
+//the code is not solved
+{
+    if(n==user_response.getCorrect()){//check is code num digits is equal to correct digits
+        return true;//true if above is true
     }else{
-        return false;
+        return false;//false if nonequal number of digits and correct digits
     }
 }
 
-void mastermind::playGame(){
-    Code secretCode(n,m);
-    std::vector<int> sec=secretCode.getCode();
-    const int MAX_TURNS=10;
-    int turns=0;
-    gameCode.setCode(sec);
-    printSecretCode();
-    int win=0;
-    while(win==0||MAX_TURNS==turns){
-        Code guessCode=humanGuess();
-        response one=getResponse(&guessCode);
-        std::cout<<one;
-        if(isSolved(one)){
-            win=1;
+void mastermind::playGame()
+//Play game is an object that takes in no user input
+//it is assumed that the mastermind object calling has a
+//value of n and m and this function also returns nothing
+//this function then plays the game which creates a secret code
+//prints a secret code has the user enter a guess
+//checks this guess against secret code
+//sees if the puzzle was solved if not iterates until
+//turn limit is reached and then win and lose is displayed
+{
+    Code secretCode(n,m);//Creates a secret code object with values
+    
+    std::vector<int> sec=secretCode.getCode();//gets the current secret cdode
+    const int MAX_TURNS=10;//defines max turns in the game
+    int turns=0;//defines number of turns in game
+    gameCode.setCode(sec);//sers secretCode to the game code
+    printSecretCode();//pritns the secret code for users to see
+    int win=0;//winner flag used to determin if the user has won the game
+    while(win==0||MAX_TURNS==turns)
+    //win flag is checked and if the maxturns has passed
+    {
+        Code guessCode=humanGuess();//gets the user guess code from keyboard
+        response one=getResponse(&guessCode);//checks this secretcode and guess code
+        std::cout<<one;//prints out correct and incorrect responses
+        if(isSolved(one)){//checks if the puzzle has been solved
+            win=1;//sets the winning flag to win
         }
-        turns=turns+1;
+        turns=turns+1;//increments turns counter
     }
-    if(win==1){
-    std::cout<<"YOU WIN"<<std::endl;
+    if(win==1){//win flag
+    std::cout<<"YOU WIN"<<std::endl;//highlights the user has won
     }else{
-    std::cout<<"YOU LOSE"<<std::endl;    
+    std::cout<<"YOU LOSE"<<std::endl;  //highlights the user has lost
     }
 }
