@@ -67,7 +67,7 @@ std::vector<int> Code::getCode() const
 int Code::checkCorrect(Code *guess)
 {
     std::vector<int> guessSeq=guess->getCode();	// Gets guess objects code
-    int n=seq.size();							// Gets size of sequenece
+    int n=(int)seq.size();							// Gets size of sequenece
     int correct = 0;							// variable for correct digits in each vector
 
 	// loop going through all digits in code
@@ -108,7 +108,7 @@ void Code::setCode(std::vector<int> codeSet)
 int Code::checkIncorrect(Code *guess)
 {
     std::vector<int> guessSeq = guess->getCode();	// gets the guess code containing guessVector
-    int n = seq.size();								// Returns number of digits
+    int n = (int)seq.size();								// Returns number of digits
     int numIncorrect = 0;							// counter for number of digits in incorrect location
     std::vector<int> posGood;						// posGood is flag for digit in correct location for two seq.
 	std::vector<int> tempSeq(seq);					// temporary vector containing same elements as secret code
@@ -164,7 +164,7 @@ int Code::checkIncorrect(Code *guess)
 // function is const since nothing should be modified
 void Code::printCode() const{
 
-	int n = seq.size();				// Get number of digits in code
+	int n = (int)seq.size();				// Get number of digits in code
     std::cout<<"Secret Code"<<std::endl;
     std::cout<<"{";
 	for ( int i = 0; i < n; i++)	// loop through digits in code

@@ -1,6 +1,6 @@
-// Anthony Bisulco, Nathaniel Hartwig 
+// Anthony Bisulco, Nathaniel Hartwig
 // Fundamentals of Algorithms
-// Project 1 MASTER MIND 1a
+// Project 1 MASTER MIND 1b
 // Prototype of the Code Class
 // Code Class performs the operation of generating secret codes
 // Also the class is used to hold the user guess in another code object.

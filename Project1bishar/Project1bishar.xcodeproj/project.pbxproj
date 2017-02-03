@@ -52,10 +52,10 @@
 			isa = PBXGroup;
 			children = (
 				3907387A1E3EF0E700C55B1A /* main.cpp */,
-				3907387B1E3EF0E700C55B1A /* mastermind.cpp */,
-				390738771E3EF0E700C55B1A /* Code.cpp */,
-				390738781E3EF0E700C55B1A /* Code.hpp */,
 				390738791E3EF0E700C55B1A /* d_random.h */,
+				390738781E3EF0E700C55B1A /* Code.hpp */,
+				390738771E3EF0E700C55B1A /* Code.cpp */,
+				3907387B1E3EF0E700C55B1A /* mastermind.cpp */,
 				3907387C1E3EF0E700C55B1A /* mastermind.h */,
 				3907387D1E3EF0E700C55B1A /* response.cpp */,
 				3907387E1E3EF0E700C55B1A /* response.h */,

@@ -1,47 +1,63 @@
-/*
- class mastermind {
-private:
-    Code nate;
-public:
-    mastermind(int n, int m);
-    mastermind();
-    void printSecretCode();
-    Code humanGuess();
-    response getResponse(Code guessCode, Code secretCode);
-    bool isSolved(response user_response);
-    void playGame();
-    
-};
-*/
+
+// Anthony Bisulco, Nathaniel Hartwig
+// Fundamentals of Algorithms
+// Project 1 MASTER MIND 1a
+// Implementation of the Code Class
+// Mastermind class performs the action fo playing the game and allowing IO
+// contains funtction to play game for ten turns then tell the user who won
+// additionally the game will print the secret code at the end to highlight
+// how close you were to the guess, contains implemntations for
+//Constructor no arguments, constructor arguments code length and digits
+//humanGuess, getResponese,isSolved and playGame
 #include "Code.hpp"
 #include "response.h"
 #include "mastermind.h"
 #include <iostream>
 #include <vector>
-int mastermind::getM(){
-    return m;
-}
-int mastermind::getN(){
-    return n;
-}
+#include <climits>
 
-mastermind::mastermind(int nA,int mA){
+
+mastermind::mastermind(int nA,int mA)
+//One of two constructors for the mastermind class
+//Creates the mastermind object and intializes the
+//code length and digit length to their values n and m
+//they values are assumed to be within range above 0 and
+//are supposed to be integers ensured using bound check fn
+{
     n=nA;
     m=mA;
     
 }
-mastermind::mastermind(){
+mastermind::mastermind()
+//One of two constructors for the mastermind class
+//Creates the mastermind object and intializes the
+//code length and digit length to their default values n=5 and m=10
+//they values are assumed to be within range above 0 and
+//are supposed to be integers ensured using bound check fn
+{
     n=5;
     m=10;
     
 }
 
-void mastermind::printSecretCode(){
+void mastermind::printSecretCode()
+//print secret code uses the functionality
+//developed in the last code class to print
+//the secret code which prints out the
+//secret code using a cout fucntion
+//no user input and no return
+{
     gameCode.printCode();
     
 }
 
-Code mastermind::humanGuess(){
+Code mastermind::humanGuess()
+//Human Guess is a function that takes in no parameters
+//as a return this function returns an object which is
+//a code object containig the guess code with what should
+//be initialized parmeters with values(n,m and secret code)
+//function ensures correct user io through 
+{
     std::string prompt="Guess";
     std::vector<int> code;
     int temp;//Temporary variable used to hold user input

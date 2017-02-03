@@ -25,8 +25,6 @@ class mastermind {
 		response getResponse(Code *guessCode);
 		bool isSolved(response user_response);
 		void playGame();
-        int getN();
-        int getM();
 
 };
 
