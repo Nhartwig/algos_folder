@@ -42,7 +42,8 @@ void Code::seqInitialize(int n, int m)
         if(m==1){
             seq.push_back(0);
         }else{
-            seq.push_back((int(fabs(rndA.random()))% (m)));
+            
+            seq.push_back((std::abs(int(rndA.random())))% (m));
         }
     }
 }
