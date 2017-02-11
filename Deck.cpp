@@ -12,32 +12,11 @@
 #include <vector>
 #include "d_random.h"
 #include <math.h>
-
-/*
-class Deck{
-public:
-    node<int> *front;
-    node<int> shuffle();
-    friend void operator <<(std::ostream& ostr, int a);
-    Deck(void);
-private:
-    node<int> getFront();
-    
-    
-};
- node() : next(NULL)
- {}
- 
- // constructor. initialize nodeValue and next
- node(const T& item, node<T> *nextNode = NULL) :
- nodeValue(item), next(nextNode)
-*/
+#include <time.h>
 //A to King, club-diamond-heart-spade
 //1 Ace, 11 Jack, 12 Queen, 13 King
 Deck::Deck(){
-
     node<Card> *prev=front;
-    //prev->next=front;
     for(int i=13;i>0;i=i-1){
         for(int j=3;j>-1;j=j-1){
         front=new node<Card>({i,getSuitName(j)});
@@ -46,6 +25,7 @@ Deck::Deck(){
             prev=front;
         }
     }
+    
     
 }
 std::string Deck::getSuitName(int a){
@@ -64,7 +44,7 @@ std::string Deck::getSuitName(int a){
 std::ostream& operator <<(std::ostream& ostr, Deck& a){
     node<Card> *frontW=a.front;
     int i=1;
-    while(frontW->next!=NULL){
+    while(frontW!=NULL){
         ostr<<"Card "<< i<<": "<<frontW->nodeValue.getSuit()<< " "<<frontW->nodeValue.getValue()<<std::endl;
         frontW=frontW->next;
         i=i+1;
@@ -76,30 +56,102 @@ node<Card> Deck::getFront(){
     return *front;
 }
 node<Card> Deck::shuffle(){
-    std::vector<int> ta(1);
-    ta.clear();
-    ta.back()=1;
-    for(int i=1;i<53;i=i+1){
-        ta.push_back(i);
-    }
-    node<Card> *prevA;
-    prevA=front;
-    int len=1;
-    randomNumber rndA(0);
-    int index=0;
-    int numTemp=0;
-    int endA;
-    while(prevA->next!=NULL&&len!=0){
-        index=std::abs((int)rndA.random())%len;
-        numTemp=ta[index];
-        endA=ta[len];
-        ta[index]=endA;
-        ta.pop_back();
-      // std::cout<<numTemp<<std::endl;
-        prevA->nodeValue.setSuit(getSuitName(numTemp%4));
-        prevA->nodeValue.setValue((numTemp%13)+1);
-        prevA=prevA->next;
-        len=ta.size();
+    srand (time(NULL));
+    
+    for(int j=0;j<100;j=j+1){
+        int un=std::abs((int)rand())%13+1;
+        int du=std::abs((int)rand())%13+1;
+        int te=std::abs((int)rand())%3+1;
+        int fo=std::abs((int)rand())%3+1;
+        swap(un, du, getSuitName(te), getSuitName(fo));
     }
     return *front;
+
 }
+void Deck::swap(int x, int y, std::string one, std::string two){
+    node<Card> *prevOne = NULL,*currOne = NULL;
+    node<Card> *prevTwo = NULL,*currTwo= NULL;
+    node<Card> *iter;
+    iter=front;
+    if(x==y&&one==two){
+        return;
+    }
+    
+    if(x==iter->nodeValue.getValue()&&one==iter->nodeValue.getSuit()){
+        currOne=front;
+    }else{
+        while(iter->next!=NULL){
+           
+           prevOne=iter;
+           iter=iter->next;
+           if(iter->nodeValue.getValue()==x && iter->nodeValue.getSuit()==one){
+               
+                currOne=iter;
+                break;
+            }
+        }
+    }
+    iter=front;
+    if(y==iter->nodeValue.getValue()&&two==iter->nodeValue.getSuit()){
+        currTwo=front;
+    }else{
+        while(iter->next!=NULL){
+            
+            prevTwo=iter;
+            iter=iter->next;
+            if(iter->nodeValue.getValue()==y && iter->nodeValue.getSuit()==two){
+                
+                currTwo=iter;
+                break;
+            }
+        }
+    }
+    node<Card> *temp;
+    if(prevOne==NULL){
+        if(currOne->next==currTwo){
+            currOne->next=currTwo->next;
+            currTwo->next=currOne;
+            front=currTwo;
+        }else{
+        temp=currTwo->next;
+        currTwo->next=currOne->next;
+        currOne->next=temp;
+        prevTwo->next=currOne;
+        front=currTwo;
+        }
+        
+    }else if(prevTwo==NULL){
+        if(currTwo->next==currOne){
+            currTwo->next=currOne->next;
+            currOne->next=currTwo;
+            front=currOne;
+        }else{
+            
+        temp=currOne->next;
+        currOne->next=currTwo->next;
+        currTwo->next=temp;
+        prevOne->next=currTwo;
+        front=currOne;
+            }
+    }
+    else if(currOne->next==currTwo){
+
+    prevOne->next=currTwo;
+    currOne->next=currTwo->next;
+    currTwo->next=currOne;
+        
+    }else if(currTwo->next==currOne){
+
+    prevTwo->next=currOne;
+    currTwo->next=currOne->next;
+    currOne->next=currTwo;
+    }else{
+        temp=currTwo->next;
+        prevOne->next=currTwo;
+        currTwo->next=currOne->next;
+        currOne->next=temp;
+        prevTwo->next=currOne;
+    }
+    
+}
+

@@ -19,8 +19,10 @@ class Deck{
         node<Card> shuffle();
         friend std::ostream& operator <<(std::ostream& ostr, Deck& a);
         Deck(void);
+        void swap(int x, int y, std::string one, std::string two);
     private:
         node<Card> getFront();
+    
         std::string getSuitName(int a);
     
 };

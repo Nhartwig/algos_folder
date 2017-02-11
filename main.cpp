@@ -12,12 +12,16 @@
 int main(int argc, const char * argv[]) {
     // insert code here...
     Deck r;
+    
     std::cout<<"Before Card Shuffle"<<std::endl;
     std::cout<<r;
     r.shuffle();
     r.shuffle();
     r.shuffle();
+ 
     std::cout<<"After Card Shuffle"<<std::endl;
     std::cout<<r;
+     
+    
     return 0;
 }
