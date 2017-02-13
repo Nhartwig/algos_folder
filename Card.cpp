@@ -46,7 +46,7 @@ void Card::setSuit(std::string s)
      suit = s;
 }
 
-int Card::getValue()
+int Card::getValue() const
 //getter function that takes in nothing
 //returns the value of the given card object
 //this value should be in range 1,13
@@ -54,12 +54,48 @@ int Card::getValue()
     return value;
 }
 
-std::string Card::getSuit()
+std::string Card::getSuit() const
 //getter function that takes in nothing
 //returns the suit of the given card object
 //be within set {Heart,Spade,Club,Diamond}
 {
     return suit;
+}
+std::string Card::getValueName(int a) const
+//get value name is a helper function
+//that takes in a value a in bettween 1-13
+//1-13 where 11 is Jack,12 is Queen, 13 is King, 1 is Ace
+//based off this value this corresponds to a string value
+//if none are found then DNE is returned, the return is one
+//of the strings described above
+{
+    if (a < 11 && a != 1)
+    {
+        return std::to_string(a);//if numbers are 2-10 returns regluar number
+    }
+    else
+    {
+        if (a == 11)
+        {//if the value is 11 this corresponds to Jack
+            return "Jack";
+        }
+        else if (a == 12)
+        {//if the value is 12 this corresponds to queen
+            return "Queen";
+        }
+        else if (a == 13)
+        {//if the value is 13 this corresponds to king
+            return "King";
+        }
+        else if (a == 1)
+        {//if the value is 1 this corresponds to Ace
+            return "Ace";
+        }
+        else
+        {//if not this will return with nothing found
+            return "DNE";
+        }
+    }
 }
 
 std::ostream& operator<< (std::ostream& ostr, const Card& C)
@@ -68,7 +104,7 @@ std::ostream& operator<< (std::ostream& ostr, const Card& C)
 //additionally takes in a card object creates a new
 //ostream object that is returned to be printed to the screen
 {
-    ostr << C.value << " " << C.suit << std::endl;
+    ostr << C.suit << " " << C.getValueName(C.value);
     //formats a ostr object with the format Value _ Suite for a card object
     return ostr;//returns the ostream to be  printed to screen
 }

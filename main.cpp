@@ -13,15 +13,15 @@
 int main(int argc, const char * argv[]) {
     Deck r;//Creates a Deck Object
     
-    std::cout<<"Before Card Shuffle"<<std::endl;
+    std::cout << "Before Card Shuffle" << std::endl;
     std::cout<<r;
     //prints the deck object using overloaded operator
     r.shuffle();
     r.shuffle();
     r.shuffle();
     //shuffles the deck object 3 different times
-    std::cout<<"After Card Shuffle"<<std::endl;
-    std::cout<<r;
+    std::cout << "After Card Shuffle" << std::endl;
+    std::cout << r;
     //prints the deck object using overloaded operator
     
     return 0;
