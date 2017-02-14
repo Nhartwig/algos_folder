@@ -23,8 +23,10 @@ class Deck{
         void shuffle();//shuffles cards in the linked list to a random order
         friend std::ostream& operator <<(std::ostream& ostr, Deck& a);//overloaded print operator to print linked list
         Deck(void);//default constructor to create the deck
-    
+        ~Deck(void);
     private:
+        Card deal(void);
+        void replace(Card c);
         node<Card> *front;//pointer to initial linked list which contains deck, node object
         void swap(int x, int y, std::string one, std::string two);//swap function to switch two elements in the linked list
         std::string getSuitName(int a) const;//gets the suit name for a given value 0 Club,1 Diamond,2 Heart,3 Spade

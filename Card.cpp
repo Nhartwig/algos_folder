@@ -27,7 +27,16 @@ Card::Card(int v, std::string s)
     setValue(v);//sets the value for the card object
     setSuit(s);//sets the suit for the card object
 }
+Card& Card::operator = (const Card &rhs){
+    value=rhs.getValue();
+    suit=rhs.getSuit();
+    return *this;
+}
+Card::Card(const Card & rhs){
+    value=rhs.getValue();
+    suit=rhs.getSuit();
 
+}
 void Card::setValue(int v)
 //setter function that takes in a value
 //this function then resets the cards value

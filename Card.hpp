@@ -29,6 +29,8 @@ class Card
         std::string getSuit() const;//get suit to get the suit of a card object
         friend std::ostream& operator << (std::ostream& ostr, const Card& C);
         //overloaded printing operator for the printing of a card
+        Card& operator = (const Card &rhs);
+        Card(const Card & rhs);
 };
 
 

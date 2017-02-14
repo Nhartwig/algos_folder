@@ -45,6 +45,71 @@ Deck::Deck()
     
     
 }
+Deck::~Deck(){
+    node<Card> *iter = front;
+    node<Card> *prev = front;
+    while (iter!=NULL)
+    {
+        prev=iter;
+        iter=iter->next;
+        delete prev;
+    }
+    
+}
+Card Deck::deal(){
+   node<Card> *iter = front;
+    Card ret=front->nodeValue;
+    iter=iter->next;
+    front=iter;
+    return ret;
+}
+void Deck::replace(Card c){
+     node<Card> *prevOne = NULL, *currOne = NULL;
+    node<Card> *iter;
+    //iter is a variable used to go through all the elments in the linked list
+    iter = front;
+    if (c.getValue() == iter -> nodeValue.getValue() && c.getSuit() == iter -> nodeValue.getSuit())
+    {
+        currOne = front;
+    }
+    else
+    {
+        
+        while (iter -> next != NULL)
+        {
+            //goes through the elements in the list and checks if the last element is null
+            prevOne = iter;
+            //prevOne is set to the current iteration
+            iter = iter -> next;
+            //set the linked list to next element in the linked list
+            if (iter -> nodeValue.getValue() == c.getValue() && iter -> nodeValue.getSuit() == c.getSuit() )
+            {
+                //checks if the current value in the linked list has value and correct suit
+                currOne = iter;
+                //set the current linked list value the given current value
+                break;
+                //breaks through the function
+            }//end if
+        }//end while
+    }//end else
+    iter=front;
+    if(prevOne==NULL){
+        front=currOne->next;
+        currOne->next=NULL;
+        while(iter->next!=NULL){
+            iter=iter->next;
+        }
+        iter->next=currOne;
+    }else{
+        prevOne->next=currOne->next;
+        currOne->next=NULL;
+        while(iter->next!=NULL){
+            iter=iter->next;
+            }
+        iter->next=currOne;
+    }
+
+}
 std::string Deck::getSuitName(int a) const
 //get suit name is a helper function
 //that takes in a value a in bettween 0-3
