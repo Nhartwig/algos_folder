@@ -23,6 +23,9 @@ int main(int argc, const char * argv[]) {
     std::cout << "After Card Shuffle" << std::endl;
     std::cout << r;
     //prints the deck object using overloaded operator
+    r.playFlip();
+    
+
     
     return 0;
 }

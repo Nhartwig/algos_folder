@@ -16,7 +16,7 @@
 #include <iostream>
 
 
-Card::Card(int v, std::string s)
+Card::Card(int v, std::string s, int act)
 //constructor to create a card object
 //takes in value v which should be in range 1,13
 //also the string should be limited to the set
@@ -26,16 +26,26 @@ Card::Card(int v, std::string s)
 {
     setValue(v);//sets the value for the card object
     setSuit(s);//sets the suit for the card object
+    setActive(act);
+}
+void Card::setActive(int a) {
+    active = a;
+}
+int Card::getActive() const{
+    return active;
 }
 Card& Card::operator = (const Card &rhs){
     value=rhs.getValue();
     suit=rhs.getSuit();
+    active=rhs.getActive();
     return *this;
 }
+
+
 Card::Card(const Card & rhs){
     value=rhs.getValue();
     suit=rhs.getSuit();
-
+    active=rhs.getActive();
 }
 void Card::setValue(int v)
 //setter function that takes in a value

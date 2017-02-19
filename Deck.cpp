@@ -17,6 +17,8 @@
 #include <vector>
 #include <math.h>
 #include "d_random.h"
+#include <vector>
+#include <climits>
 //A to King, club-diamond-heart-spade
 //1 Ace, 11 Jack, 12 Queen, 13 King
 Deck::Deck()
@@ -25,7 +27,9 @@ Deck::Deck()
 //1-13 where 11 is Jack,12 is Queen, 13 is King, 1 is Ace
 //this is created by linking elements in a node class list togther
 {
+    front=NULL;
     node<Card> *prev = front;
+    
     //gets the pointer to the object and created previous pointer as this
     for (int i = 13; i > 0; i = i - 1)
     {
@@ -33,7 +37,8 @@ Deck::Deck()
         for (int j = 3; j > -1; j = j - 1)
         {
             //suit loop for card suit, note indcies are reverese to create list 13-1
-            front = new node<Card> ({i,getSuitName(j)});
+            Card x(i,getSuitName(j),1);
+            front = new node<Card>(x);
             //creates a new card object with value given and suitName corresponding to j
             //where j 0 is Club, 1 is Diamond, 2 is Heart 3 is Spade
             front -> next = prev;
@@ -42,7 +47,7 @@ Deck::Deck()
             //sets the new previous card to the current card
         }//end suit loop
     }//end value for loop
-    
+    frontDeal=prev;
     
 }
 Deck::~Deck(){
@@ -56,12 +61,82 @@ Deck::~Deck(){
     }
     
 }
+
 Card Deck::deal(){
    node<Card> *iter = front;
     Card ret=front->nodeValue;
     iter=iter->next;
     front=iter;
     return ret;
+}
+
+void Deck::playFlip(){
+    for(int i=0;i<24;i=i+1){
+        deal();
+    }
+    int act=1;
+    int score = 0;
+    int carNum=0;
+    act=bound_check("Would you like to play 0 for no,1 for yes", -1 , 2);
+    while(act==1){
+        std::cout<<"Receieve 10pts Ace, 5 pts King Queen Jack"<<std::endl;
+        std::cout<<"0pts for 8,9,10, lose half for 7"<<std::endl;
+        std::cout<<"lost all points 2,3,4,5,6 and +1 for heart"<<std::endl;
+        std::cout<<"Would you like to apply another round"<<std::endl;
+        carNum=bound_check("Choose a Card 1 to 24", 0 , 25);
+        Card x =getCard(carNum);
+        cout<<"Your Card"<<x<<endl;
+        carVal(x, score);
+        std::cout<<"Score"<<score<<std::endl;
+        setCard(carNum);
+        act=bound_check("Would you like to play 0 for no,1 for yes", -1 , 2);
+    }
+   
+}
+
+Card& Deck::getCard(int carNum){
+    node<Card> *iter;
+    iter=frontDeal;
+    int num=0;
+    while(num!=carNum){
+        num=num+1;
+        iter=iter->next;
+    }
+
+    return iter->nodeValue;
+}
+void Deck::setCard(int carNum){
+    node<Card> *iter;
+    iter=frontDeal;
+    int num=0;
+    while(num!=carNum){
+        num=num+1;
+        iter=iter->next;
+    }
+    
+    iter->nodeValue.setActive(0);
+}
+
+void Deck::carVal(Card &x, int &score){
+    if(x.getActive()==1){
+    if(x.getValue()==1){
+        score = score + 10;
+    }else if(x.getValue()==11||x.getValue()==12||x.getValue()==13){
+        score = score+5;
+    }else if(x.getValue()==8||x.getValue()==9||x.getValue()==10){
+        score = score+0;
+    }else if(x.getValue()==7){
+        score=(int)score/2;
+    }else if(x.getValue()==2||x.getValue()==3||x.getValue()==4||x.getValue()==5||x.getValue()==6){
+        score =0;
+    }
+    if(x.getSuit()=="Heart"){
+        score=score+1;
+    }
+    }else{
+        std::cout<<"card already flipped"<<std::endl;
+    }
+    
 }
 void Deck::replace(Card c){
      node<Card> *prevOne = NULL, *currOne = NULL;
@@ -147,7 +222,7 @@ std::ostream& operator << (std::ostream& ostr, Deck& a)
 //returns a printed format of the whole deck with format Card : Suit Value
 //then returns an ostream object
 {
-    node<Card> *frontW = a.front;//gets the front of the linked list in the deck object
+    node<Card> *frontW = a.frontDeal;//gets the front of the linked list in the deck object
     int i = 1;//counter for the card number
     while (frontW != NULL)
     {//waits until there is no card object seen
@@ -155,6 +230,7 @@ std::ostream& operator << (std::ostream& ostr, Deck& a)
         //creates the ostream with the format Card : Suit Value
         frontW = frontW -> next;
         //goes to to the next point in the linked list
+      
         i = i + 1;//increments the counter variable
     }
     return ostr;//return out stream object
@@ -185,6 +261,7 @@ void Deck::shuffle()
         //function performs swapping in linked lists of values designated rndValOne and rndValTwo
         //and they need to have the suits name rndSuitTwo and rndSuitOne for them to be found
         //these values are then swapped in the linked list to create a random value
+        
     }
 
 }
@@ -271,6 +348,7 @@ void Deck::swap(int x, int y, std::string one, std::string two)
             currTwo -> next = currOne;
             //sets current element of the second one to the current element of the first
             front = currTwo;
+            frontDeal=currTwo;
             //and set the fronts element to the current second now
         }
         else
@@ -284,6 +362,7 @@ void Deck::swap(int x, int y, std::string one, std::string two)
             prevTwo -> next = currOne;
             //and set the fronts element to the current second now
             front = currTwo;
+            frontDeal=currTwo;
         }
         
     }
@@ -297,6 +376,7 @@ void Deck::swap(int x, int y, std::string one, std::string two)
             currOne -> next = currTwo;
             //sets first node next to second node
             front = currOne;
+            frontDeal=currOne;
             //resets first note to front
         }
         else
@@ -311,6 +391,7 @@ void Deck::swap(int x, int y, std::string one, std::string two)
             prevOne -> next = currTwo;
             //and set previous first object to the current second
             front = currOne;
+            frontDeal=currOne;
             //sets new front element to the first one
         }
     }
@@ -353,3 +434,36 @@ void Deck::swap(int x, int y, std::string one, std::string two)
     
 }
 
+int Deck::bound_check(std::string prompt, int min , int max)
+{
+    int tr = 1;										  // flag used for remprompt of input
+    int temp = 0;									  // holds temporary number for returning if in bound
+    while (tr == 1)							          // repeat loop till correct input in bound
+    {
+        std::cout << prompt << std::endl;			  // prints the prompt
+        std::cin >> temp;							  // inputs from keyboard single number
+        if (std::cin.fail())						  // checks if input is a failure
+        {
+            std::cout << "NOT A NUMBER!" << std::endl;// prints not number
+            std::cin.clear();						  // clears buffer
+            std::cin.ignore(INT_MAX,'\n');			  // ignores error
+            fflush(stdin);							  // flushes input
+            continue;								  // contiune through
+        }
+        else
+        {
+            if (temp > min && temp < max)			  // checks if temp within min and max
+            {
+                tr=0;								  // sets flag to 0 for sucess
+            }
+            else									  // else, the user is in the incorrect range
+            {
+                std::cout << "Number not incorrect range please renter" << std::endl;
+                std::cin.clear();					  // clears buffer
+                fflush(stdin);						  // flushes input
+            }
+        }
+        
+    }			 // end of the while loop
+    return temp; // returns integer value checked to be within bounds
+}				 // end of bound check function.
