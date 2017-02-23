@@ -14,6 +14,7 @@ class Card
 		int getValue();
 		std::string getSuit();
 		friend std::ostream& operator<< (std::ostream& ostr, const Card& C);
+
 };
 
 
